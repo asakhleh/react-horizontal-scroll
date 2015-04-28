@@ -65,6 +65,8 @@ module.exports = React.createClass({
     this.setState({
       offset: Math.floor(offset),
       scrollWidth: scrollWidth,
+      offsetLeft: element.offsetLeft,
+      offsetTop: element.offsetTop,
       canScrollLeft: offset > 0,
       canScrollRight: offset < scrollWidth
     });
@@ -85,16 +87,27 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    var className = sprintf('horizontal-scrolling %s', this.props.className),
+    var className = 'horizontal-scrolling',
+      bodyScrollTop = document.body.scrollTop,
+      windowInnerHeight = window.innerHeight,
       width = this.state.width,
       scrollWidth = this.state.scrollWidth,
       offset = this.state.offset > 0 ? this.state.offset : 0,
-      top = ((this.state.offsetTop + this.state.height) / 2) - 35, // 70px height for button
+
+      bottom = Math.min(this.state.offsetTop + this.state.height, bodyScrollTop + windowInnerHeight),
+      top = Math.max(this.state.offsetTop, bodyScrollTop),
+
       left = this.state.offsetLeft,
       right = this.state.offsetLeft + this.state.width - 60; // 60px width for button
 
     if (left > (scrollWidth - width)) {
       left = scrollWidth - width;
+    }
+
+    top = (bottom - top - 70 / 2) / 2 + top; // 70px height for button
+
+    if (this.props.className) {
+      className = sprintf('%s %s', className, this.props.className);
     }
 
     return (

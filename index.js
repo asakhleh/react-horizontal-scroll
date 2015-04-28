@@ -19,6 +19,7 @@ module.exports = React.createClass({
       height: 0,
       offsetLeft: 0,
       offsetTop: 0,
+      scrollLeft: 0,
       scrollWidth: 0,
       canScrollLeft: false,
       canScrollRight: true
@@ -35,11 +36,15 @@ module.exports = React.createClass({
       offsetTop: element.offsetTop
     });
 
-    window.addEventListener('resize', this.handleResize);
+    element.addEventListener('scroll', this.onScroll);
+    window.addEventListener('resize', this.onResize);
   },
 
   componentWillUnmount: function() {
-    window.removeEventListener('resize', this.handleResize);
+    var element = this.getDOMNode();
+
+    element.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('resize', this.onResize);
   },
 
   componentDidUpdate: function () {
@@ -50,7 +55,12 @@ module.exports = React.createClass({
     target.scrollLeft = position;
   },
 
-  handleResize: function(e) {
+  onScroll: function () {
+    var offset = event.target.scrollLeft;
+    this.setScrollState(offset);
+  },
+
+  onResize: function () {
     this.setScrollState();
   },
 
@@ -63,7 +73,10 @@ module.exports = React.createClass({
     }
 
     this.setState({
+      height: element.offsetHeight,
+      width: element.offsetWidth,
       offset: Math.floor(offset),
+      scrollLeft: element.scrollLeft,
       scrollWidth: scrollWidth,
       offsetLeft: element.offsetLeft,
       offsetTop: element.offsetTop,
@@ -87,24 +100,36 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    var className = 'horizontal-scrolling',
-      bodyScrollTop = document.body.scrollTop,
+    var body = document.body,
+      className = 'horizontal-scrolling',
       windowInnerHeight = window.innerHeight,
+
+      offsetTop = this.state.offsetTop,
+      offsetLeft = this.state.offsetLeft,
+
+      height = this.state.height,
       width = this.state.width,
+
+      scrollLeft = this.state.scrollLeft,
       scrollWidth = this.state.scrollWidth,
-      offset = this.state.offset > 0 ? this.state.offset : 0,
+      scrollTop = body.scrollTop,
 
-      bottom = Math.min(this.state.offsetTop + this.state.height, bodyScrollTop + windowInnerHeight),
-      top = Math.max(this.state.offsetTop, bodyScrollTop),
+      offset = offset > 0 ? offset : 0,
 
-      left = this.state.offsetLeft,
-      right = this.state.offsetLeft + this.state.width - 60; // 60px width for button
+      bottom = Math.min(offsetTop + height, scrollTop + windowInnerHeight),
+      top = Math.max(offsetTop, scrollTop),
+      left = offsetLeft,
+      right = offsetLeft + width - 60,
 
-    if (left > (scrollWidth - width)) {
-      left = scrollWidth - width;
+      canScrollLeft = this.state.canScrollLeft,
+      canScrollRight = this.state.canScrollRight;
+
+    top = (bottom - top - 70 / 2) / 2 + top; // 70px arrow height
+
+    if (offsetTop >= windowInnerHeight || offsetTop + height < scrollTop) {
+      canScrollLeft = false;
+      canScrollRight = false;
     }
-
-    top = (bottom - top - 70 / 2) / 2 + top; // 70px height for button
 
     if (this.props.className) {
       className = sprintf('%s %s', className, this.props.className);
@@ -114,12 +139,12 @@ module.exports = React.createClass({
       <div className={className}>
         <Arrow
           onClick={this.scrollLeft}
-          show={this.state.canScrollLeft}
+          show={canScrollLeft}
           top={top}
           left={left} />
         <Arrow
           onClick={this.scrollRight}
-          show={this.state.canScrollRight}
+          show={canScrollRight}
           top={top}
           left={right}
           direction='right'  />

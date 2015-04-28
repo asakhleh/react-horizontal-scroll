@@ -1,6 +1,6 @@
 {
   "name": "react-horizontal-scroll",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "engines": {
     "iojs": "^1",
@@ -16,7 +16,12 @@
   "browserify": {
     "transform": [
       "cssify",
-      ["reactify", { "es6": true }]
+      [
+        "reactify",
+        {
+          "es6": true
+        }
+      ]
     ]
   },
   "devDependencies": {
@@ -40,6 +45,7 @@
   },
   "dependencies": {
     "classnames": "^1.2.2",
-    "react": "^0.13.2"
+    "react": "^0.13.2",
+    "sprintf": "^0.1.5"
   }
 }

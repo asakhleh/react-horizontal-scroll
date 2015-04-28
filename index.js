@@ -1,11 +1,16 @@
 'use strict';
 
 var React = require('react'),
+  sprintf = require('sprintf'),
   Arrow = require('./components/arrow');
 
 require('./app.css');
 
 module.exports = React.createClass({
+
+  propTypes: {
+    className: React.PropTypes.string
+  },
 
   getInitialState: function () {
     return {
@@ -74,7 +79,8 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    var width = this.state.width,
+    var className = sprintf('horizontal-scrolling %s', this.props.className),
+      width = this.state.width,
       scrollWidth = this.state.scrollWidth,
       offset = this.state.offset > 0 ? this.state.offset : 0,
       top = (this.state.height / 2) - 35, // 70px height for button
@@ -86,7 +92,7 @@ module.exports = React.createClass({
     }
 
     return (
-      <div className='horizontal-scrolling'>
+      <div className={className}>
         <Arrow
           onClick={this.scrollLeft}
           show={this.state.canScrollLeft}

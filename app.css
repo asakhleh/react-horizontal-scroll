@@ -1,10 +1,5 @@
 .horizontal-scrolling {
-  background-color: white;
-  height: 200px;
-  width: 50%;
-
   position: relative;
-
   overflow: scroll;
   word-wrap: break-word;
   white-space: nowrap;

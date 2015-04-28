@@ -1,5 +1,5 @@
 {
-  "name": "@lanetix/react-horizontal-scroll",
+  "name": "react-horizontal-scroll",
   "version": "1.0.0",
   "description": "",
   "engines": {
@@ -7,7 +7,7 @@
     "npm": "^2"
   },
   "main": "index.js",
-  "repository": "https://github.com/lanetix/lanetix-react-horizontal-scroll.git",
+  "repository": "https://github.com/lanetix/react-horizontal-scroll.git",
   "scripts": {
     "example": "gulp",
     "lint": "eslint --ignore-path .gitignore .",

@@ -16,12 +16,7 @@
   "browserify": {
     "transform": [
       "cssify",
-      [
-        "reactify",
-        {
-          "es6": true
-        }
-      ]
+      ["reactify", { "es6": true }]
     ]
   },
   "devDependencies": {

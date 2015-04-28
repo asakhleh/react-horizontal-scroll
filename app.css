@@ -1,5 +1,4 @@
 .horizontal-scrolling {
-  position: relative;
   overflow: scroll;
   word-wrap: break-word;
   white-space: nowrap;
@@ -11,7 +10,7 @@
 
 .horizontal-scrolling-left, .horizontal-scrolling-right {
   z-index: 10;
-  position: absolute;
+  position: fixed;
   cursor: pointer;
   background-size: 60px 70px;
   width: 60px;

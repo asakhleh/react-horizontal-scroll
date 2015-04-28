@@ -17,6 +17,8 @@ module.exports = React.createClass({
       offset: 0,
       width: 0,
       height: 0,
+      offsetLeft: 0,
+      offsetTop: 0,
       scrollWidth: 0,
       canScrollLeft: false,
       canScrollRight: true
@@ -24,9 +26,13 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function() {
+    var element = this.getDOMNode();
+
     this.setState({
-      height: this.getDOMNode().offsetHeight,
-      width: this.getDOMNode().offsetWidth
+      height: element.offsetHeight,
+      width: element.offsetWidth,
+      offsetLeft: element.offsetLeft,
+      offsetTop: element.offsetTop
     });
 
     window.addEventListener('resize', this.handleResize);
@@ -83,9 +89,9 @@ module.exports = React.createClass({
       width = this.state.width,
       scrollWidth = this.state.scrollWidth,
       offset = this.state.offset > 0 ? this.state.offset : 0,
-      top = (this.state.height / 2) - 35, // 70px height for button
-      left = offset,
-      right = offset + this.state.width - 60; // 60px width for button
+      top = ((this.state.offsetTop + this.state.height) / 2) - 35, // 70px height for button
+      left = this.state.offsetLeft + offset,
+      right = this.state.offsetLeft + this.state.width - 60; // 60px width for button
 
     if (left > (scrollWidth - width)) {
       left = scrollWidth - width;

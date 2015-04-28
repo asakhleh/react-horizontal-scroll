@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react'),
-  Arrow = require('components/arrow');
+  Arrow = require('./components/arrow');
 
 require('./app.css');
 

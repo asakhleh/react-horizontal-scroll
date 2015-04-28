@@ -90,7 +90,7 @@ module.exports = React.createClass({
       scrollWidth = this.state.scrollWidth,
       offset = this.state.offset > 0 ? this.state.offset : 0,
       top = ((this.state.offsetTop + this.state.height) / 2) - 35, // 70px height for button
-      left = this.state.offsetLeft + offset,
+      left = this.state.offsetLeft,
       right = this.state.offsetLeft + this.state.width - 60; // 60px width for button
 
     if (left > (scrollWidth - width)) {

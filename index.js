@@ -36,9 +36,9 @@ module.exports = React.createClass({
       offsetTop: element.offsetTop
     });
 
-    setTimeout(function () {
+    setInterval(function () {
       this.setScrollState();
-    }.bind(this), 100);
+    }.bind(this), 250);
 
     element.addEventListener('scroll', this.onScroll);
     window.addEventListener('resize', this.onResize);
@@ -70,10 +70,19 @@ module.exports = React.createClass({
 
   setScrollState: function (offset) {
     var element = this.getDOMNode(),
-      scrollWidth = element.scrollWidth;
+      scrollWidth = element.scrollWidth,
+      canScrollRight = false;
 
     if (offset === undefined) {
       offset = this.state.offset;
+    }
+
+    if (element.scrollLeft < (element.scrollWidth - element.offsetWidth)) {
+      canScrollRight = true;
+    }
+
+    if (!element.scrollLeft && !(element.scrollWidth - element.offsetWidth)) {
+      canScrollRight = true;
     }
 
     this.setState({
@@ -85,7 +94,7 @@ module.exports = React.createClass({
       offsetLeft: element.offsetLeft,
       offsetTop: element.offsetTop,
       canScrollLeft: offset > 0,
-      canScrollRight: offset < scrollWidth
+      canScrollRight: canScrollRight
     });
   },
 
@@ -131,6 +140,11 @@ module.exports = React.createClass({
     top = (bottom - top - 70 / 2) / 2 + top; // 70px arrow height
 
     if (offsetTop >= windowInnerHeight || offsetTop + height < scrollTop) {
+      canScrollLeft = false;
+      canScrollRight = false;
+    }
+
+    if (scrollWidth <= width) {
       canScrollLeft = false;
       canScrollRight = false;
     }

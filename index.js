@@ -22,11 +22,11 @@ module.exports = React.createClass({
       scrollLeft: 0,
       scrollWidth: 0,
       canScrollLeft: false,
-      canScrollRight: true
+      canScrollRight: false
     };
   },
 
-  componentDidMount: function() {
+  componentDidMount: function () {
     var element = this.getDOMNode();
 
     this.setState({
@@ -36,11 +36,15 @@ module.exports = React.createClass({
       offsetTop: element.offsetTop
     });
 
+    setTimeout(function () {
+      this.setScrollState();
+    }.bind(this), 100);
+
     element.addEventListener('scroll', this.onScroll);
     window.addEventListener('resize', this.onResize);
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount: function () {
     var element = this.getDOMNode();
 
     element.removeEventListener('scroll', this.onScroll);

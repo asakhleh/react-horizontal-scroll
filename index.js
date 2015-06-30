@@ -2,13 +2,17 @@
 
 var React = require('react'),
   sprintf = require('sprintf'),
-  Arrow = require('./components/arrow');
+  Arrow = require('./components/arrow'),
+  intervalId;
 
 require('./app.css');
 
 module.exports = React.createClass({
 
+  displayName: 'React Horizontal Scroll',
+
   propTypes: {
+    children: React.PropTypes.element,
     className: React.PropTypes.string
   },
 
@@ -36,7 +40,7 @@ module.exports = React.createClass({
       offsetTop: element.offsetTop
     });
 
-    setInterval(function () {
+    intervalId = setInterval(function () {
       this.setScrollState();
     }.bind(this), 250);
 
@@ -46,6 +50,10 @@ module.exports = React.createClass({
 
   componentWillUnmount: function () {
     var element = this.getDOMNode();
+
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
 
     element.removeEventListener('scroll', this.onScroll);
     window.removeEventListener('resize', this.onResize);
@@ -59,7 +67,7 @@ module.exports = React.createClass({
     target.scrollLeft = position;
   },
 
-  onScroll: function () {
+  onScroll: function (event) {
     var offset = event.target.scrollLeft;
     this.setScrollState(offset);
   },
@@ -98,14 +106,14 @@ module.exports = React.createClass({
     });
   },
 
-  scrollLeft: function (event) {
+  scrollLeft: function () {
     var element = this.getDOMNode(),
       offset = element.scrollLeft - element.scrollWidth * 0.15;
 
     this.setScrollState(offset);
   },
 
-  scrollRight: function (event) {
+  scrollRight: function () {
     var element = this.getDOMNode(),
       offset = element.scrollLeft + element.scrollWidth * 0.15;
 
@@ -123,7 +131,6 @@ module.exports = React.createClass({
       height = this.state.height,
       width = this.state.width,
 
-      scrollLeft = this.state.scrollLeft,
       scrollWidth = this.state.scrollWidth,
       scrollTop = body.scrollTop,
 
@@ -165,7 +172,7 @@ module.exports = React.createClass({
           show={canScrollRight}
           top={top}
           left={right}
-          direction='right'  />
+          direction='right' />
         {this.props.children}
       </div>
     );

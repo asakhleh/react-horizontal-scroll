@@ -1,6 +1,6 @@
 {
   "name": "react-horizontal-scroll",
-  "version": "1.0.9",
+  "version": "2.0.0",
   "description": "",
   "engines": {
     "iojs": "^1",
@@ -16,16 +16,16 @@
   "browserify": {
     "transform": [
       "cssify",
-      ["reactify", { "es6": true }]
+      "reactify"
     ]
   },
   "devDependencies": {
     "browser-sync": "^2.6.5",
     "browserify": "^9.0.8",
     "cssify": "^0.7.0",
-    "eslint": "^0.19.0",
+    "eslint": "^0.24.0",
     "eslint-plugin-nodeca": "^1.0.3",
-    "eslint-plugin-react": "^2.1.1",
+    "eslint-plugin-react": "^2.6.3",
     "gulp": "^3.8.11",
     "gulp-changed": "^1.2.1",
     "gulp-notify": "^2.2.0",
@@ -33,7 +33,6 @@
     "gulp-util": "^3.0.4",
     "mocha": "^2.2.4",
     "pretty-hrtime": "^1.0.0",
-    "reactify": "^1.1.0",
     "require-directory": "^2.1.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.0"
@@ -41,6 +40,7 @@
   "dependencies": {
     "classnames": "^1.2.2",
     "react": "^0.13.2",
+    "reactify": "^1.1.0",
     "sprintf": "^0.1.5"
   }
 }

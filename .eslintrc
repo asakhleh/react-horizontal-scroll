@@ -42,10 +42,8 @@
     "no-shadow": 0,
     "dot-notation": 2,
     "no-underscore-dangle": 2,
-    "space-after-keywords": [2, "always", {
-      "checkFunctionKeyword": true
-    }],
-
+    "space-after-keywords": [2, "always"],
+    "space-before-function-parentheses": 2,
     "react/no-multi-comp": 1,
     "react/prop-types": 1,
     "react/display-name": 1,

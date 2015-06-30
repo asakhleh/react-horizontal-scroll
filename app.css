@@ -4,10 +4,6 @@
   white-space: nowrap;
 }
 
-.horizontal-scrolling p {
-  height: 1000px;
-}
-
 .horizontal-scrolling-left, .horizontal-scrolling-right {
   z-index: 10;
   position: fixed;

@@ -33,7 +33,7 @@ module.exports = React.createClass({
   componentDidMount: function () {
     var element = this.getDOMNode();
 
-    this.setState({
+    this.setState({ //eslint-disable-line react/no-did-mount-set-state
       height: element.offsetHeight,
       width: element.offsetWidth,
       offsetLeft: element.offsetLeft,
@@ -136,7 +136,7 @@ module.exports = React.createClass({
 
       offset = offset > 0 ? offset : 0,
 
-      bottom = Math.min(offsetTop + height, scrollTop + windowInnerHeight),
+      bottom = Math.min(height - offsetTop, windowInnerHeight - scrollTop),
       top = Math.max(offsetTop, scrollTop),
       left = offsetLeft,
       right = offsetLeft + width - 60,
@@ -144,7 +144,7 @@ module.exports = React.createClass({
       canScrollLeft = this.state.canScrollLeft,
       canScrollRight = this.state.canScrollRight;
 
-    top = (bottom - top - 70 / 2) / 2 + top; // 70px arrow height
+    top = ((bottom - top - 35) / 2) + top; // 70px arrow height
 
     if (offsetTop >= windowInnerHeight || offsetTop + height < scrollTop) {
       canScrollLeft = false;

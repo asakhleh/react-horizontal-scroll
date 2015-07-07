@@ -1,12 +1,12 @@
 'use strict';
 
-var React = require('react'),
-  classnames = require('classnames');
+var React = require('react');
 
 module.exports = React.createClass({
   displayName: 'Arrow',
 
   propTypes: {
+    direction: React.PropTypes.string,
     show: React.PropTypes.bool.isRequired,
     onClick: React.PropTypes.func,
     top: React.PropTypes.number,

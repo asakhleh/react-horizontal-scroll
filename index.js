@@ -136,7 +136,7 @@ module.exports = React.createClass({
 
       offset = offset > 0 ? offset : 0,
 
-      bottom = Math.min(height - offsetTop, windowInnerHeight - scrollTop),
+      bottom = windowInnerHeight - scrollTop,
       top = Math.max(offsetTop, scrollTop),
       left = offsetLeft,
       right = offsetLeft + width - 60,
